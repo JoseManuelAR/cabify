@@ -8,17 +8,16 @@ public:
 
   void start();
 
-  std::uint64_t createCheckout();
+  BasketId createBasket();
 
 private:
-  std::uint64_t _checkoudId = 0;
 };
 
 Memory::MemoryImpl::MemoryImpl() {}
 
 void Memory::MemoryImpl::start() {}
 
-std::uint64_t Memory::MemoryImpl::createCheckout() { return _checkoudId++; }
+BasketId Memory::MemoryImpl::createBasket() { return 0; }
 
 Memory::Memory() : _impl{std::make_unique<MemoryImpl>()} {}
 
@@ -26,6 +25,6 @@ Memory::~Memory() {}
 
 void Memory::start() { _impl->start(); }
 
-std::uint64_t Memory::createCheckout() { return _impl->createCheckout(); }
+BasketId Memory::createBasket() { return _impl->createBasket(); }
 
 } // namespace model

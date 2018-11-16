@@ -1,3 +1,5 @@
+#ifndef _SERVER_MODEL_MEMORY_HPP_
+#define _SERVER_MODEL_MEMORY_HPP_
 
 #include <memory>
 #include <model/model.hpp>
@@ -11,7 +13,7 @@ public:
 
   void start() override;
 
-  std::uint64_t createCheckout() override;
+  BasketId createBasket() override;
 
 private:
   class MemoryImpl;
@@ -19,3 +21,5 @@ private:
 };
 
 } // namespace model
+
+#endif //_SERVER_MODEL_MEMORY_HPP_

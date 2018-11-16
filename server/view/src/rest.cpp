@@ -1,4 +1,4 @@
-#include <controller/checkoutcreator.hpp>
+#include <controller/basketcreator.hpp>
 #include <model/model.hpp>
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
@@ -48,8 +48,8 @@ void Rest::RestImpl::doGetCheckoutAmount(const Pistache::Rest::Request &request,
 }
 
 void Rest::RestImpl::doPostCheckout(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter response) {
-  controller::CheckoutCreator checkoutCreator;
-  auto id = checkoutCreator.execute(_model);
+  controller::BasketCreator basketCreator;
+  auto id = basketCreator.execute(_model);
   response.send(Pistache::Http::Code::Ok, std::to_string(id));
 }
 
