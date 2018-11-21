@@ -13,7 +13,8 @@ public:
 
   void start() override;
 
-  BasketId createBasket() override;
+  Basket createBasket() override;
+  std::optional<Product> createProduct(BasketId basketId) override;
 
 private:
   class MemoryImpl;

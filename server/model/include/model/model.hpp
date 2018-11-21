@@ -2,6 +2,9 @@
 #define _SERVER_MODEL_MODEL_HPP_
 
 #include <model/basket.hpp>
+#include <model/product.hpp>
+
+#include <optional>
 
 namespace model {
 
@@ -11,7 +14,8 @@ public:
 
   virtual void start() = 0;
 
-  virtual BasketId createBasket() = 0;
+  virtual Basket createBasket() = 0;
+  virtual std::optional<Product> createProduct(BasketId basketId) = 0;
 };
 
 } // namespace model
