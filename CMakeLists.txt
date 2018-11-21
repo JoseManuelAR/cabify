@@ -9,5 +9,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
 
 project(cabify-store)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
+set(EXTERNAL_INSTALL_LOCATION ${CMAKE_SOURCE_DIR}/external)
+
+find_package(Nlohmann)
+find_package(Pistache)
+
 #add_subdirectory(client)
 add_subdirectory(server)

@@ -26,8 +26,6 @@ private:
   BasketId _id = 0;
 };
 
-inline bool operator==(const Basket &lhs, const Basket &rhs) { return lhs.id() == rhs.id(); }
-
 } // namespace model
 
 #endif //_SERVER_MODEL_BASKET_HPP_

@@ -2,6 +2,7 @@
 #define _SERVER_MODEL_PRODUCT_HPP_
 
 #include <cstdint>
+#include <json.hpp>
 
 namespace model {
 
@@ -13,6 +14,8 @@ public:
 
   ProductId id() const { return _id; }
 
+  nlohmann::json toJson();
+
 private:
   static ProductId _currentId;
   ProductId _id = 0;
@@ -23,7 +26,9 @@ public:
   std::size_t operator()(const Product &product) const { return product.id(); }
 };
 
-inline bool operator==(const Product &lhs, const Product &rhs) { return lhs.id() == rhs.id(); }
+inline bool operator==(const Product &lhs, const Product &rhs) {
+  return lhs.id() == rhs.id();
+}
 
 } // namespace model
 

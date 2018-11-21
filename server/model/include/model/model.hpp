@@ -3,12 +3,15 @@
 
 #include <model/basket.hpp>
 #include <model/product.hpp>
+#include <model/amount.hpp>
 
 #include <optional>
 
-namespace model {
+namespace model
+{
 
-class Model {
+class Model
+{
 public:
   virtual ~Model() = default;
 

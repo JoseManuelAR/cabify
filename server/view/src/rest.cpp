@@ -1,3 +1,4 @@
+#include <controller/amountgetter.hpp>
 #include <controller/basketcreator.hpp>
 #include <controller/productcreator.hpp>
 #include <model/model.hpp>
@@ -48,7 +49,7 @@ void Rest::RestImpl::start(std::unique_ptr<model::Model> model) {
       router, "/basket/:basketid/product/",
       Pistache::Rest::Routes::bind(&RestImpl::doPostProduct, this));
   Pistache::Rest::Routes::Get(
-      router, "/basket/amount",
+      router, "/basket/:basketid/amount",
       Pistache::Rest::Routes::bind(&RestImpl::doGetBasketAmount, this));
 
   auto opts = Pistache::Http::Endpoint::options().threads(4).flags(
@@ -61,7 +62,10 @@ void Rest::RestImpl::start(std::unique_ptr<model::Model> model) {
 void Rest::RestImpl::doGetBasketAmount(
     const Pistache::Rest::Request &request,
     Pistache::Http::ResponseWriter response) {
-  response.send(Pistache::Http::Code::Ok, std::to_string(1111));
+  auto basketId = request.param(":basketid").as<std::uint64_t>();
+  controller::AmountGetter amountGetter;
+  amountGetter.execute(_model);
+  response.send(Pistache::Http::Code::Ok, std::to_string(basketId));
 }
 
 void Rest::RestImpl::doPostProduct(const Pistache::Rest::Request &request,
@@ -70,7 +74,7 @@ void Rest::RestImpl::doPostProduct(const Pistache::Rest::Request &request,
   controller::ProductCreator productCreator{basketId};
   auto product = productCreator.execute(_model);
   if (product) {
-    response.send(Pistache::Http::Code::Ok, std::to_string(product->id()));
+    response.send(Pistache::Http::Code::Ok, product->toJson().dump());
   } else {
     response.send(Pistache::Http::Code::Not_Found,
                   Pistache::Http::codeString(Pistache::Http::Code::Not_Found));
