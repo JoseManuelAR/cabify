@@ -10,6 +10,8 @@ namespace model {
 
 class Amount {
 public:
+  nlohmann::json toJson();
+
 private:
 };
 

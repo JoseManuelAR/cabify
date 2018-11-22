@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <json.hpp>
 
+#include <model/amount.hpp>
 #include <model/product.hpp>
 
 namespace model {
@@ -18,12 +19,14 @@ public:
   BasketId id() const { return _id; }
 
   std::optional<Product> createProduct();
+  Amount getAmount() { return Amount{}; }
 
   nlohmann::json toJson();
 
 private:
   static BasketId _currentId;
   BasketId _id = 0;
+  std::vector<Product> _products = {};
 };
 
 } // namespace model

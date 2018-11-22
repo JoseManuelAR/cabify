@@ -1,7 +1,5 @@
 include(ExternalProject)
 
-set(EXTERNAL_INSTALL_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/external)
-
 ExternalProject_Add(project_nlohmann
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_TAG v3.4.0

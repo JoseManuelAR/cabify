@@ -3,13 +3,15 @@
 #include <cstdint>
 #include <memory>
 
-namespace controller
-{
+namespace controller {
 
-class AmountGetter
-{
-  public:
-    model::Amount execute(std::shared_ptr<model::Model> model);
+class AmountGetter {
+public:
+  AmountGetter(std::uint64_t basketId) : _basketId{basketId} {};
+  std::tuple<common::Error, std::optional<model::Amount>> execute(std::shared_ptr<model::Model> model);
+
+private:
+  std::uint64_t _basketId;
 };
 
 } // namespace controller

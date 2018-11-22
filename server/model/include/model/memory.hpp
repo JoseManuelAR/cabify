@@ -14,7 +14,8 @@ public:
   void start() override;
 
   Basket createBasket() override;
-  std::optional<Product> createProduct(BasketId basketId) override;
+  std::tuple<common::Error, std::optional<model::Product>> createProduct(BasketId basketId) override;
+  std::tuple<common::Error, std::optional<model::Amount>> getAmount(BasketId basketId) override;
 
 private:
   class MemoryImpl;

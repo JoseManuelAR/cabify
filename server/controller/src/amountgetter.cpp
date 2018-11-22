@@ -2,11 +2,10 @@
 #include <iostream>
 #include <thread>
 
-namespace controller
-{
+namespace controller {
 
-model::Amount AmountGetter::execute(std::shared_ptr<model::Model> model)
-{
-    return model::Amount{};
+std::tuple<common::Error, std::optional<model::Amount>>
+AmountGetter::execute(std::shared_ptr<model::Model> model) {
+  return model->getAmount(_basketId);
 }
 } // namespace controller

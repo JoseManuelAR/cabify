@@ -4,5 +4,8 @@
 
 namespace controller {
 
-std::optional<model::Product> ProductCreator::execute(std::shared_ptr<model::Model> model) { return model->createProduct(_basketId); }
+std::tuple<common::Error, std::optional<model::Product>>
+ProductCreator::execute(std::shared_ptr<model::Model> model) {
+  return model->createProduct(_basketId);
+}
 } // namespace controller
