@@ -7,21 +7,22 @@
 namespace model {
 
 class Memory : public Model {
-public:
+ public:
   Memory();
   ~Memory();
 
   void start() override;
 
   Basket createBasket() override;
-  std::tuple<common::Error, std::optional<model::Product>> createProduct(BasketId basketId) override;
-  std::tuple<common::Error, std::optional<model::Amount>> getAmount(BasketId basketId) override;
+  std::tuple<common::Error, std::optional<model::Product>> createProduct(BasketId basketId, const std::string &code) override;
+  std::tuple<common::Error, std::optional<std::unordered_map<std::string, std::uint64_t>>> getProducts(BasketId basketId) override;
+  common::Error addStock(const std::string &code, const std::string &name, float price) override;
 
-private:
+ private:
   class MemoryImpl;
   std::unique_ptr<MemoryImpl> _impl;
 };
 
-} // namespace model
+}  // namespace model
 
-#endif //_SERVER_MODEL_MEMORY_HPP_
+#endif  //_SERVER_MODEL_MEMORY_HPP_

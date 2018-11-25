@@ -1,9 +1,15 @@
 #ifndef _SERVER_COMMON_ERROR_HPP_
 #define _SERVER_COMMON_ERROR_HPP_
 
-namespace common {
+namespace common
+{
 
-enum class Error { Success, BasketNotFound };
+enum class Error
+{
+    Success,
+    StockExistsCode,
+    BasketNotFound
+};
 
 } // namespace common
 

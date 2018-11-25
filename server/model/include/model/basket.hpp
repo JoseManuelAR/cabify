@@ -18,15 +18,17 @@ public:
 
   BasketId id() const { return _id; }
 
-  std::optional<Product> createProduct();
-  Amount getAmount() { return Amount{}; }
+  void createProduct(const std::string &code);
+  std::unordered_map<std::string, std::uint64_t> getProducts() const {
+    return _products;
+  }
 
   nlohmann::json toJson();
 
 private:
   static BasketId _currentId;
   BasketId _id = 0;
-  std::vector<Product> _products = {};
+  std::unordered_map<std::string, std::uint64_t> _products;
 };
 
 } // namespace model

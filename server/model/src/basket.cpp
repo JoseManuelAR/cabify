@@ -11,6 +11,6 @@ nlohmann::json Basket::toJson() {
   return val;
 }
 
-std::optional<Product> Basket::createProduct() { return Product{}; }
+void Basket::createProduct(const std::string &code) { _products[code]++; }
 
-} // namespace model
+}  // namespace model

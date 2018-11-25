@@ -10,25 +10,23 @@ using ProductId = std::uint64_t;
 
 class Product {
 public:
-  Product() : _id{++_currentId} {};
+  Product(const std::string &code, const std::string &name, float price)
+      : _code{code}, _name{name}, _price{price} {}
 
-  ProductId id() const { return _id; }
+  nlohmann::json toJson() {
+    nlohmann::json val = nlohmann::json::object();
 
-  nlohmann::json toJson();
+    val["code"] = _code;
+    val["name"] = _name;
+    val["price"] = _price;
+    return val;
+  }
 
 private:
-  static ProductId _currentId;
-  ProductId _id = 0;
+  std::string _code;
+  std::string _name;
+  float _price;
 };
-
-class ProductHash {
-public:
-  std::size_t operator()(const Product &product) const { return product.id(); }
-};
-
-inline bool operator==(const Product &lhs, const Product &rhs) {
-  return lhs.id() == rhs.id();
-}
 
 } // namespace model
 

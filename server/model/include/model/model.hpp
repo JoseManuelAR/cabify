@@ -11,16 +11,17 @@
 namespace model {
 
 class Model {
-public:
+ public:
   virtual ~Model() = default;
 
   virtual void start() = 0;
 
   virtual Basket createBasket() = 0;
-  virtual std::tuple<common::Error, std::optional<model::Product>> createProduct(BasketId basketId) = 0;
-  virtual std::tuple<common::Error, std::optional<model::Amount>> getAmount(BasketId basketId) = 0;
+  virtual std::tuple<common::Error, std::optional<model::Product>> createProduct(BasketId basketId, const std::string &code) = 0;
+  virtual std::tuple<common::Error, std::optional<std::unordered_map<std::string, std::uint64_t>>> getProducts(BasketId basketId) = 0;
+  virtual common::Error addStock(const std::string &code, const std::string &name, float price) = 0;
 };
 
-} // namespace model
+}  // namespace model
 
-#endif //_SERVER_MODEL_MODEL_HPP_
+#endif  //_SERVER_MODEL_MODEL_HPP_
