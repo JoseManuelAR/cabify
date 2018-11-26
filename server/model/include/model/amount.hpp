@@ -10,9 +10,12 @@ namespace model {
 
 class Amount {
 public:
+  explicit Amount(float total) : _total{total} {}
+
   nlohmann::json toJson();
 
 private:
+  float _total;
 };
 
 } // namespace model

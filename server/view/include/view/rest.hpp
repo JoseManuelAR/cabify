@@ -11,7 +11,8 @@ public:
   Rest(const std::string &host, std::uint16_t port);
   ~Rest();
 
-  void start(std::unique_ptr<model::Model> model) override;
+  virtual void start(std::unique_ptr<model::Stock> stock,
+                     std::unique_ptr<model::Model> model) override;
 
 private:
   class RestImpl;

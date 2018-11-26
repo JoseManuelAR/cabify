@@ -1,5 +1,6 @@
 #include <common/error.hpp>
 #include <model/model.hpp>
+#include <model/stock.hpp>
 
 #include <cstdint>
 #include <memory>
@@ -10,10 +11,9 @@ namespace controller {
 
 class ProductCreator {
 public:
-  ProductCreator(std::uint64_t basketId, const std::string &code)
-      : _basketId{basketId}, _code{code} {};
-  std::tuple<common::Error, std::optional<model::Product>>
-  execute(std::shared_ptr<model::Model> model);
+  ProductCreator(std::uint64_t basketId, const std::string &code) : _basketId{basketId}, _code{code} {};
+
+  std::tuple<common::Error, std::optional<model::Product>> execute(std::shared_ptr<model::Stock> stock, std::shared_ptr<model::Model> model);
 
 private:
   std::uint64_t _basketId;

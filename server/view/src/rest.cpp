@@ -2,6 +2,7 @@
 #include <controller/basketcreator.hpp>
 #include <controller/productcreator.hpp>
 #include <model/model.hpp>
+#include <model/stock.hpp>
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
 #include <pistache/router.h>
@@ -16,11 +17,13 @@ public:
   RestImpl(std::uint16_t port);
   RestImpl(const std::string &host, std::uint16_t port);
 
-  void start(std::unique_ptr<model::Model> model);
+  void start(std::unique_ptr<model::Stock> stock,
+             std::unique_ptr<model::Model> model);
 
 private:
   std::string _host;
   std::uint16_t _port = 0;
+  std::shared_ptr<model::Stock> _stock;
   std::shared_ptr<model::Model> _model;
 
   void doPostBasket(const Pistache::Rest::Request &request,
@@ -37,7 +40,9 @@ Rest::RestImpl::RestImpl(std::uint16_t port)
 Rest::RestImpl::RestImpl(const std::string &host, std::uint16_t port)
     : _host{host}, _port{port}, _model{nullptr} {}
 
-void Rest::RestImpl::start(std::unique_ptr<model::Model> model) {
+void Rest::RestImpl::start(std::unique_ptr<model::Stock> stock,
+                           std::unique_ptr<model::Model> model) {
+  _stock = std::move(stock);
   _model = std::move(model);
 
   Pistache::Address addr(_host, _port);
@@ -66,7 +71,7 @@ void Rest::RestImpl::doGetBasketAmount(
     Pistache::Http::ResponseWriter response) {
   auto basketId = request.param(":basketid").as<std::uint64_t>();
   controller::AmountGetter amountGetter{basketId};
-  auto amount = amountGetter.execute(_model);
+  auto amount = amountGetter.execute(_stock, _model);
 
   switch (std::get<0>(amount)) {
   case common::Error::Success:
@@ -93,7 +98,7 @@ void Rest::RestImpl::doPostProduct(const Pistache::Rest::Request &request,
         Pistache::Http::codeString(Pistache::Http::Code::Bad_Request));
   } else {
     controller::ProductCreator productCreator{basketId, code.get()};
-    auto product = productCreator.execute(_model);
+    auto product = productCreator.execute(_stock, _model);
     switch (std::get<0>(product)) {
     case common::Error::Success:
       response.send(Pistache::Http::Code::Ok,
@@ -123,8 +128,9 @@ Rest::Rest(const std::string &host, std::uint16_t port)
 
 Rest::~Rest() {}
 
-void Rest::start(std::unique_ptr<model::Model> model) {
-  _impl->start(std::move(model));
+void Rest::start(std::unique_ptr<model::Stock> stock,
+                 std::unique_ptr<model::Model> model) {
+  _impl->start(std::move(stock), std::move(model));
 }
 
 } // namespace view
