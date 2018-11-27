@@ -1,4 +1,5 @@
 build
+bin
 server/view/external/
 .vscode/
 external/

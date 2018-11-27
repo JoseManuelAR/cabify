@@ -13,6 +13,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 set(EXTERNAL_INSTALL_LOCATION ${CMAKE_SOURCE_DIR}/external)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 find_package(Nlohmann)
 find_package(Pistache)
 

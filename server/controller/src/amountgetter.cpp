@@ -14,9 +14,12 @@ std::tuple<common::Error, std::optional<model::Amount>> AmountGetter::execute(st
         total += (p.second * stock->price(p.first).value());
       }
     }
+    for (auto discount : _discounts) {
+      discount->execute(total);
+    }
     return std::make_tuple(std::get<0>(products), model::Amount{total});
   }
   return std::make_tuple(std::get<0>(products), std::nullopt);
 }
 
-} // namespace controller
+}  // namespace controller
