@@ -5,7 +5,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++-7")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -std=c++11")
 
 project(cabify-store)
 
@@ -16,5 +16,4 @@ set(EXTERNAL_INSTALL_LOCATION ${CMAKE_SOURCE_DIR}/external)
 find_package(Nlohmann)
 find_package(Pistache)
 
-#add_subdirectory(client)
 add_subdirectory(server)
